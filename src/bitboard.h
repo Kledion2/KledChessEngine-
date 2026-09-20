@@ -1,7 +1,7 @@
 #include "types.h"
+#include <cassert>
 #include <bit>
 #include <cstdint>
-#include <assert.h>
 
 using Bitboard = uint64_t;
 
@@ -19,15 +19,13 @@ constexpr Bitboard Rank2BB = Rank1BB << (8 * 1);
 constexpr Bitboard Rank3BB = Rank1BB << (8 * 2);
 constexpr Bitboard Rank4BB = Rank1BB << (8 * 3);
 constexpr Bitboard Rank5BB = Rank1BB << (8 * 4);
-constexpr uint64_t Rank6BB = Rank1BB << (8 * 5);
-constexpr uint64_t Rank7BB = Rank1BB << (8 * 6);
-constexpr uint64_t Rank8BB = Rank1BB << (8 * 7);
+constexpr Bitboard Rank6BB = Rank1BB << (8 * 5);
+constexpr Bitboard Rank7BB = Rank1BB << (8 * 6);
+constexpr Bitboard Rank8BB = Rank1BB << (8 * 7);
 
 constexpr Bitboard rank_bb(int r) { return Rank1BB << (8 * r); }
 constexpr Bitboard file_bb(int f) { return FileABB << f; }
-constexpr Bitboard square_bb(int square) {
-  return 1ULL << square;
-}
+constexpr Bitboard square_bb(int square) { return 1ULL << square; }
 
 inline int pop_count(Bitboard b) { return std::popcount(b); }
 inline int lsb(Bitboard b) { return std::countr_zero(b); }
@@ -40,7 +38,7 @@ constexpr int rankOf(int square) {
   assert(square >= 0 && square < 64);
   return square / 8;
 }
-constexpr int fileOf(int square)  {
+constexpr int fileOf(int square) {
   assert(square >= 0 && square < 64);
   return square % 8;
 }

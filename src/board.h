@@ -21,7 +21,6 @@ private:
   Bitboard totalOccupancy;
   Bitboard whiteOccupancy;
   Bitboard blackOccupancy;
-  Bitboard emptyOccupancy;
 
 public:
   // void initZobristKey();
