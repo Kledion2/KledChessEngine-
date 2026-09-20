@@ -1,13 +1,5 @@
 #include "board.h"
 
-int Board::rankOf(int square) const {
-  assert(square >= 0 && square < 64);
-  return square / 8;
-}
-int Board::fileOf(int square) const {
-  assert(square >= 0 && square < 64);
-  return square % 8;
-}
 bool Board::colorOf(int square) const {
   assert(square >= 0 && square < 12);
   return (board[square] <= 6) ? WHITE : BLACK;
@@ -34,22 +26,54 @@ Bitboard Board::getEmptyOccupancy() const { return ~totalOccupancy; }
 
 void Board::removePiece(int from) {
   assert(from >= 0 && from < 64 && board[from] != 0);
-  Bitboards[board[from]] &= ~square_bb(from);
+  const Bitboard sqBB = square_bb(from);
+  Bitboards[board[from]] &= ~sqBB;
+  bool color = colorOf(board[from]);
+  if (!color) {
+    whiteOccupancy &= ~sqBB;
+  } else {
+    blackOccupancy &= ~sqBB;
+  }
+  totalOccupancy &= ~sqBB;
   board[from] = 0;
   return;
 }
+
+
 void Board::putPiece(int from, int to) {
+
   assert(from >= 0 && from < 64 && to >= 0 && to < 64);
-  Bitboards[board[from]] |= square_bb(to);
+
+  const Bitboard sqBB = square_bb(to);
+
+  bool colorFrom = colorOf(board[from]);
+  if (colorFrom == WHITE) {
+    blackOccupancy &= ~sqBB;
+    whiteOccupancy |= sqBB;
+  } else {
+    whiteOccupancy &= ~sqBB;
+    blackOccupancy |= sqBB;
+  }
+
+  Bitboards[board[from]] |= sqBB;
+  if (board[to] != 0) {
+    Bitboards[board[to]] &= ~sqBB;
+  }
   board[to] = board[from];
+  return;
 }
+
+
 void Board::makeMove(int from, int to) {
   if (checkLegal(from, to)) {
     putPiece(from, to);
     removePiece(from);
+    return;
   }
+  return;
 }
+
+
 bool Board::checkLegal(int from, int to) const {
-  return false;
-  return true;
+
 }

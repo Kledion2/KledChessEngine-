@@ -1,6 +1,7 @@
 #include "types.h"
 #include <bit>
 #include <cstdint>
+#include <assert.h>
 
 using Bitboard = uint64_t;
 
@@ -34,4 +35,12 @@ inline int pop_lsb(Bitboard &b) {
   const int s = lsb(b);
   b &= b - 1;
   return s;
+}
+constexpr int rankOf(int square) {
+  assert(square >= 0 && square < 64);
+  return square / 8;
+}
+constexpr int fileOf(int square)  {
+  assert(square >= 0 && square < 64);
+  return square % 8;
 }

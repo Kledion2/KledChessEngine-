@@ -37,18 +37,11 @@ public:
   void changeTurn();
 
   void updateTotalOccupancy();
-  void updateWhiteOccupancy();
-  void updateBlackOccupancy();
-  void updateEmptyOccupancy();
 
   Bitboard getTotalOccupancy() const;
   Bitboard getWhiteOccupancy() const;
   Bitboard getBlackOccupancy() const;
   Bitboard getEmptyOccupancy() const;
 
-  int fileOf(int square) const;
-  int rankOf(int square) const;
-  bool colorOf(int square)const;
-
-
+  bool colorOf(int square) const;
 };
