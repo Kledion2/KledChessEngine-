@@ -1,5 +1,5 @@
 #include <cstdint>
-
+using Bitboard = uint64_t;
 struct State {
   uint64_t Zobrist;
 };
@@ -7,9 +7,8 @@ class Board {
 private:
   State state;
   int board[64];
-  uint64_t Bitboard[13];
+  Bitboard Bitboards[12];
   enum pieces {
-    EMPTY = 0,
     W_PAWN,
     W_BISHOP,
     W_KNIGHT,
@@ -25,6 +24,7 @@ private:
   };
 
 public:
+  void initZobristKey();
   void printBoard();
 
   void putPiece(int from, int to);
