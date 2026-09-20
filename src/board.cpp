@@ -8,6 +8,10 @@ int Board::fileOf(int square) const {
   assert(square >= 0 && square < 64);
   return square % 8;
 }
+bool Board::colorOf(int square) const {
+  assert(square >= 0 && square < 12);
+  return (board[square] <= 6) ? WHITE : BLACK;
+}
 
 void Board::printBoard() const {
   for (int rank = 7; rank >= 0; rank--) {
@@ -34,4 +38,18 @@ void Board::removePiece(int from) {
   board[from] = 0;
   return;
 }
-void putPiece(int from, int to) {}
+void Board::putPiece(int from, int to) {
+  assert(from >= 0 && from < 64 && to >= 0 && to < 64);
+  Bitboards[board[from]] |= square_bb(to);
+  board[to] = board[from];
+}
+void Board::makeMove(int from, int to) {
+  if (checkLegal(from, to)) {
+    putPiece(from, to);
+    removePiece(from);
+  }
+}
+bool Board::checkLegal(int from, int to) const {
+  return false;
+  return true;
+}

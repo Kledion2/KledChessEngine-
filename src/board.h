@@ -48,6 +48,7 @@ public:
 
   int fileOf(int square) const;
   int rankOf(int square) const;
+  bool colorOf(int square)const;
 
 
 };
