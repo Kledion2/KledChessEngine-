@@ -1,8 +1,8 @@
+#include "types.h"
+#include <bit>
 #include <cstdint>
 
 using Bitboard = uint64_t;
-
-
 
 constexpr Bitboard FileABB = 0x0101010101010101ULL;
 constexpr Bitboard FileBBB = FileABB << 1;
@@ -23,3 +23,15 @@ constexpr uint64_t Rank7BB = Rank1BB << (8 * 6);
 constexpr uint64_t Rank8BB = Rank1BB << (8 * 7);
 
 constexpr Bitboard rank_bb(int r) { return Rank1BB << (8 * r); }
+constexpr Bitboard file_bb(int f) { return FileABB << f; }
+constexpr Bitboard square_bb(int square) {
+  return 1ULL << square;
+}
+
+inline int pop_count(Bitboard b) { return std::popcount(b); }
+inline int lsb(Bitboard b) { return std::countr_zero(b); }
+inline int pop_lsb(Bitboard &b) {
+  const int s = lsb(b);
+  b &= b - 1;
+  return s;
+}
